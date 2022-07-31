@@ -14,7 +14,7 @@
     "gen-version": "node scripts/gen-version",
     "gen-icon": "ts-node scripts/genicon/index",
     "test": "vitest",
-    "build:components": "npm run gen-version && node ./scripts/build.js"
+    "build:components": "node ./scripts/build.js"
   },
   "dependencies": {
     "vue": "^3.2.25"
