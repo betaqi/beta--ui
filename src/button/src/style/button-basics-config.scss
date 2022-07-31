@@ -1,0 +1,70 @@
+// 所有不同type按钮自定义样式
+@import '../../../style/variable.scss';
+
+// 按钮类型的配置
+$type: (
+  default: (
+    color: $s-text,
+    border: $s-default-border
+  ),
+  primary: (
+    color: $s-light-text,
+    background-color: $s-primary
+  ),
+
+);
+
+// 按钮尺寸
+$size: (
+  tiny: (
+    height: 21px,
+    padding: 0 6px,
+    font-size: $s-font-size-tiny
+  ),
+  small: (
+    height: 28px,
+    padding: 0 10px,
+    font-size: $s-font-size-sm-or-md
+  ),
+  medium: (
+    height: 34px,
+    padding: 0 14px,
+    font-size: $s-font-size-sm-or-md
+  ),
+  large: (
+    height: 40px,
+    padding: 0 18px,
+    font-size: $s-font-size-lg
+  )
+);
+
+// 伪类的配置
+$pseudo: (
+  default: (
+    hover: (
+      border: $s-default-border-hover,
+      color: $s-default-color-hover
+    ),
+    active: (
+      color: $s-default-active,
+      border: $s-default-active-border
+    ),
+    disabled: (
+      color: $s-disabled-text,
+      border: $s-default-border-disabled
+    )
+  ),
+  primary: (
+    hover: (
+      background-color: $s-primary-hover
+    ),
+    active: (
+      background-color: $s-primary-active
+    ),
+    disabled: (
+      color: $s-light-text,
+      background-color: $s-primary-disabled,
+      border: none
+    )
+  ),
+);

@@ -1,0 +1,47 @@
+// 所有不同type按钮自定义样式
+@import '../../../style/variable.scss';
+
+// 按钮类型的配置
+$type: (
+  default: (
+    color: $s-text,
+    background-color: $s-secondary-bg,
+    border: none
+  ),
+  primary: (
+    color: $s-secondary-primary-color,
+    background-color: $s-secondary-bg
+  ),
+);
+
+// 伪类的配置
+$pseudo: (
+  default: (
+    hover: (
+      background-color: $s-secondary-bg-hover,
+      border: none
+    ),
+    active: (
+      background-color: $s-secondary-bg-active,
+    ),
+    disabled: (
+      color: $s-disabled-text,
+      background-color: $s-secondary-bg,
+      border: none
+    )
+  ),
+  primary: (
+    hover: (
+      background-color: $s-secondary-bg-hover
+    ),
+    active: (
+      background-color: $s-secondary-bg-active
+    ),
+    disabled: (
+      color: $s-secondary-primary-disabled,
+      background-color: $s-secondary-bg,
+      border: none
+    )
+  ),
+
+);

@@ -14,7 +14,7 @@ export default defineComponent({
   emits: ['emit'],
 
   setup(props, { slots, emit }) {
-    let count = ref(0)
+    const count = ref(0)
     const inc = () => {
       count.value++
       emit('emit')
@@ -31,7 +31,9 @@ export default defineComponent({
           {/* v-for  */}
           <ul>
             {list.value.map(str => (
-              <li key={str}>{str}</li>
+              <li class={'text-yellow-700'} key={str}>
+                {str}
+              </li>
             ))}
           </ul>
           {/* 插槽 */}

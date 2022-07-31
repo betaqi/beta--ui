@@ -1,0 +1,16 @@
+@use './button-basics-config.scss';
+@use './button-secondary-config.scss';
+@import './button-base.scss';
+
+.s-btn {
+  @include button-base;
+  @include button-variant(button-basics-config.$type);
+  @include button-variant(button-basics-config.$size);
+  @include button-variant(button-basics-config.$pseudo, true);
+  
+  &[tertiary] {
+    @include button-base;
+    @include button-variant(button-secondary-config.$type);
+    @include button-variant(button-secondary-config.$pseudo, true);
+  }
+}
