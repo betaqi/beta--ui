@@ -1,15 +1,14 @@
-import { computed, defineComponent } from 'vue'
-import { $ref, $ } from 'vue/macros'
-import { IInnerTreeNode, ITreeNode, TreeProps, treeProps } from './tree-types'
-
+import { defineComponent } from 'vue'
+import { $ } from 'vue/macros'
+import { IInnerTreeNode, TreeProps, treeProps } from './tree-types'
+import { useTree } from './hooks/useTree'
 export default defineComponent({
   name: 'STree',
   props: treeProps,
   setup(props: TreeProps, { slots, emit }) {
     const { data: treeData } = $(props)
-    const toggleNode = (node: IInnerTreeNode) => {
-      node.expanded = !node.expanded
-    }
+    const { toggleNode, getExpandedTree } = useTree(treeData)
+
     const defaultIcon = (node: IInnerTreeNode) => {
       return (
         <svg
@@ -26,33 +25,7 @@ export default defineComponent({
         </svg>
       )
     }
-    const getExpandedTree = computed(() => {
-      let excludeNodes: IInnerTreeNode[] = []
-      let result: IInnerTreeNode[] = []
-      let expandedNodes = treeData.filter(
-        node => node.hasOwnProperty('expanded') && !node.expanded
-      )
-      if (expandedNodes.length > 0) {
-        excludeNodes = getChildren(expandedNodes)
-        result = treeData.filter(
-          node => !excludeNodes.some(exclud => exclud.id === node.id)
-        )
-      }
-      return excludeNodes.length > 0 ? result : treeData
-    })
-    const getChildren = (
-      nodes: IInnerTreeNode[],
-      result: IInnerTreeNode[] = []
-    ) => {
-      let children = treeData.filter(item =>
-        nodes.some(node => node.id === item.parentId)
-      )
-      if (children.length > 0) {
-        result.push(...children)
-        getChildren(children, result)
-      }
-      return result
-    }
+
     return () => {
       return (
         <div style={{ userSelect: 'none' }}>
