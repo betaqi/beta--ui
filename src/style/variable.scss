@@ -6,7 +6,7 @@ $s-font-size-sm-or-md: var(--s-font-size-sm-or-md, 14px); //当组件size为''�
 $s-font-size-tiny: var(--s-font-size-tiny, 12px); //当组件size为''时使用此字号大小
 $s-font-size-lg: var(--s-font-size-md, 15px); //当组件size为''时使用此字号大小
 
-$s-animation-duration-slow: var(--s-animation-duration-slow, 300ms);
+$s-animation-duration-slow: var(--s-animation-duration-slow, 100ms);
 $s-animation-ease-in-out-smooth: var(
   --s-animation-ease-in-out-smooth,
   cubic-bezier(0.645, 0.045, 0.355, 1)
