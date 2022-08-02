@@ -46,58 +46,37 @@ const tree = [
     children: [
       {
         label: 'release.ts',
-        id: 'scripts.ts'
+        id: 'release.ts',
+        children: [
+          {
+            label: 'release2.ts',
+            id: 'release2.ts'
+          },
+          {
+            label: 'verifyCommit2.ts',
+            id: 'verifyCommit2.ts'
+          }
+        ]
       },
       {
         label: 'verifyCommit.ts',
-        id: 'scripts.ts'
+        id: 'verifyCommit.ts',
+        children: [
+          {
+            label: 'release2.1.ts',
+            id: 'release2.1.ts'
+          },
+          {
+            label: 'verifyCommit2.1.ts',
+            id: 'verifyCommit2.1.ts'
+          }
+        ]
       }
     ]
   },
   {
     label: 'pnpm-workspace.yaml',
-    id: 'pnpm-workspace.yaml',
-    children: [
-      {
-        label: 'release.ts',
-        id: 'release.ts',
-        children: [
-          {
-            label: 'release1.ts',
-            id: 'release1.ts',
-            children: [
-              {
-                label: 'release2.ts',
-                id: 'release2.ts'
-              },
-              {
-                label: 'verifyCommit2.ts',
-                id: 'verifyCommit2.ts'
-              }
-            ]
-          },
-          {
-            label: 'verifyCommit1.ts',
-            id: 'verifyCommit1.ts',
-            children: [
-              {
-                label: 'release2.1.ts',
-                id: 'release2.1.ts'
-              },
-              {
-                label: 'verifyCommit2.1.ts',
-                id: 'verifyCommit2.1.ts'
-              }
-            ]
-          }
-        ]
-      },
-
-      {
-        label: 'verifyCommit.ts',
-        id: 'verifyCommit.ts'
-      }
-    ]
+    id: 'pnpm-workspace.yaml'
   }
 ]
 const data = reactive(generateInnerTree(tree))
