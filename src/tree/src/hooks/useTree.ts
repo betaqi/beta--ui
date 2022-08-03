@@ -35,6 +35,7 @@ export function useTree(treeData: IInnerTreeNode[]) {
   }
   return {
     toggleNode,
-    getExpandedTree
+    getExpandedTree,
+    getChildren
   }
 }
