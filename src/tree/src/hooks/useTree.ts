@@ -3,7 +3,9 @@ import { computed } from 'vue'
 
 export function useTree(treeData: IInnerTreeNode[]) {
   const toggleNode = (node: IInnerTreeNode) => {
-    let find = treeData.find(item => item.id === node.id)
+    let find = treeData.find(
+      item => item.hasOwnProperty('expanded') && item.id === node.id
+    )
     if (find) find.expanded = !find.expanded
   }
   const getExpandedTree = computed(() => {
