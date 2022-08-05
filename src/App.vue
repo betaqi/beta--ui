@@ -64,7 +64,17 @@ const tree = [
         children: [
           {
             label: 'release2.1.ts',
-            id: 'release2.1.ts'
+            id: 'release2.1.ts',
+            children: [
+              {
+                label: 'release2.1.0.ts',
+                id: 'release2.1.0.ts'
+              },
+              {
+                label: 'verifyCommit2.1.0.ts',
+                id: 'verifyCommit2.1.0.ts'
+              }
+            ]
           },
           {
             label: 'verifyCommit2.1.ts',

@@ -43,12 +43,12 @@ export default defineComponent({
       return (
         <div
           style={{ userSelect: 'none' }}
-          onMouseover={() => onMouseover(event)}
-          onMouseout={() => onMouseout(event)}
+          onMouseover={e => onMouseover(e)}
+          onMouseout={e => onMouseout(e)}
         >
           {getExpandedTree.value.map(node => (
             <div
-              class="relative flex items-center"
+              class="s-tree-item relative flex items-center"
               style={{
                 paddingLeft: NODE_PADDING * node.level + 'px',
                 height: NODE_HEIGHT + 'px'
@@ -69,11 +69,10 @@ export default defineComponent({
                 ></span>
               )}
               {/* icon */}
-              <div
+              <span
+                class="h-full flex items-center justify-center"
                 style={{
-                  width: ICON_WIDTH_OR_HEIGHT + 'px',
-                  height: ICON_WIDTH_OR_HEIGHT + 'px',
-                  textAlign: 'center'
+                  width: ICON_WIDTH_OR_HEIGHT + 'px'
                 }}
                 onClick={() => toggleNode(node)}
               >
@@ -82,8 +81,8 @@ export default defineComponent({
                     ? slots.icon(node.expanded)
                     : defaultIcon(node)
                   : ''}
-              </div>
-              <span class="s-tree-name">{node.label}</span>
+              </span>
+              {node.label}
             </div>
           ))}
         </div>
@@ -91,7 +90,3 @@ export default defineComponent({
     }
   }
 })
-
-function e(e: any): void {
-  throw new Error('Function not implemented.')
-}
