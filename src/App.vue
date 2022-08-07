@@ -1,7 +1,7 @@
 <template>
   <SButton type="primary" tertiary size="small">primary</SButton>
   <SButton type="default" size="small">default</SButton>
-  <STree :data="data">
+  <STree :data="tree" draggable>
     <template #icon="iconProps">{{ iconProps ? '🙉' : '🙈' }}</template>
   </STree>
 </template>
@@ -9,8 +9,6 @@
 <script setup lang="ts">
 import { STree } from './tree/index'
 import { SButton } from './button/index'
-import { generateInnerTree } from './tree/src/utils'
-import { reactive } from 'vue'
 const tree = [
   {
     label: 'docs',
@@ -99,7 +97,6 @@ const tree = [
     id: 'pnpm-workspace.yaml'
   }
 ]
-const data = reactive(generateInnerTree(tree))
 </script>
 
 <style lang="scss"></style>

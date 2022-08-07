@@ -57,7 +57,7 @@ export default defineComponent({
                   }}
                 >
                   {/* 参照线 */}
-                  {!node.isLeaf && node.expanded && node.childrenLength && (
+                  {!node.isLeaf && node.expanded && (
                     <span
                       class="absolute w-px bg-gray-300"
                       style={{

@@ -1,11 +1,16 @@
-import { IInnerTreeNode } from '../tree-types'
-import { computed } from 'vue'
+import { IInnerTreeNode, ITreeNode } from '../tree-types'
+import { computed, reactive } from 'vue'
+import { generateInnerTree } from '../utils'
 
-export function useTree(treeData: IInnerTreeNode[]) {
+export function useTree(tree: ITreeNode[]) {
+  let treeData: IInnerTreeNode[] = reactive(generateInnerTree(tree))
   const toggleNode = (node: IInnerTreeNode) => {
     let find = treeData.find(
       item => item.hasOwnProperty('expanded') && item.id === node.id
     )
+    getChildren([node])
+      .filter(node => node.hasOwnProperty('expanded'))
+      .forEach(r => (r.expanded = true))
     if (find) find.expanded = !find.expanded
   }
 
