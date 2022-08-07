@@ -12,7 +12,7 @@ export default defineComponent({
   props: treeProps,
   setup(props: TreeProps, { slots, emit }) {
     const { data: treeData } = $(props)
-    const { toggleNode, getExpandedTree, getChildren } = useTree(treeData)
+    const { toggleNode, getExpandedTree } = useTree(treeData)
 
     const defaultIcon = (node: IInnerTreeNode) => {
       return (

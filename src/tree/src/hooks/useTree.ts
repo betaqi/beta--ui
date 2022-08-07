@@ -8,6 +8,7 @@ export function useTree(treeData: IInnerTreeNode[]) {
     )
     if (find) find.expanded = !find.expanded
   }
+
   const getExpandedTree = computed(() => {
     let excludeNodes: IInnerTreeNode[] = []
     let expandedNodes = treeData.filter(
@@ -15,12 +16,12 @@ export function useTree(treeData: IInnerTreeNode[]) {
     )
     treeData.forEach(node => {
       if (node.hasOwnProperty('expanded')) {
+        // 为可折叠节点增加childrenLength属性
         node.childrenLength = getChildren([node]).length
       }
     })
-
     for (const node of expandedNodes) {
-      getParent(node)
+      setAllParentLength(node)
     }
     excludeNodes = getChildren(expandedNodes)
     treeData.forEach(node => {
@@ -31,6 +32,7 @@ export function useTree(treeData: IInnerTreeNode[]) {
 
     return treeData
   })
+
   const getChildren = (
     nodes: IInnerTreeNode[],
     result: IInnerTreeNode[] = []
@@ -44,18 +46,20 @@ export function useTree(treeData: IInnerTreeNode[]) {
     }
     return result
   }
-  const getParent = (node: IInnerTreeNode) => {
+
+  // 修改折叠节点所有祖先节点的childrenLength
+  const setAllParentLength = (node: IInnerTreeNode) => {
     let prentNode = treeData.find(item => node.parentId === item.id)
     if (prentNode?.childrenLength && node.childrenLength) {
       prentNode.childrenLength = prentNode.childrenLength - node.childrenLength
     }
     if (prentNode?.parentId) {
-      getParent(prentNode)
+      setAllParentLength(prentNode)
     }
   }
+
   return {
     toggleNode,
-    getExpandedTree,
-    getChildren
+    getExpandedTree
   }
 }
