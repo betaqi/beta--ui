@@ -84,7 +84,7 @@ export default defineComponent({
                         : defaultIcon(node)
                       : ''}
                   </span>
-                  {node.label} {'========='} {node.childrenLength}
+                  {node.label}
                 </div>
               )
           )}
