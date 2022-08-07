@@ -46,45 +46,48 @@ export default defineComponent({
           onMouseover={e => onMouseover(e)}
           onMouseout={e => onMouseout(e)}
         >
-          {getExpandedTree.value.map(node => (
-            <div
-              class="s-tree-item relative flex items-center"
-              style={{
-                paddingLeft: NODE_PADDING * node.level + 'px',
-                height: NODE_HEIGHT + 'px'
-              }}
-            >
-              {/* 参照线 */}
-              {!node.isLeaf && node.expanded && (
-                <span
-                  class="absolute w-px bg-gray-300"
+          {getExpandedTree.value.map(
+            node =>
+              node.isShow && (
+                <div
+                  class="s-tree-item relative flex items-center"
                   style={{
-                    height: NODE_HEIGHT * getChildren([node]).length + 'px',
-                    left:
-                      NODE_PADDING * node.level +
-                      ICON_WIDTH_OR_HEIGHT / 2 +
-                      'px',
-                    top: NODE_HEIGHT + 'px'
+                    paddingLeft: NODE_PADDING * node.level + 'px',
+                    height: NODE_HEIGHT + 'px'
                   }}
-                ></span>
-              )}
-              {/* icon */}
-              <span
-                class="h-full flex items-center justify-center"
-                style={{
-                  width: ICON_WIDTH_OR_HEIGHT + 'px'
-                }}
-                onClick={() => toggleNode(node)}
-              >
-                {node.hasOwnProperty('expanded')
-                  ? slots.icon
-                    ? slots.icon(node.expanded)
-                    : defaultIcon(node)
-                  : ''}
-              </span>
-              {node.label}
-            </div>
-          ))}
+                >
+                  {/* 参照线 */}
+                  {!node.isLeaf && node.expanded && node.childrenLength && (
+                    <span
+                      class="absolute w-px bg-gray-300"
+                      style={{
+                        height: NODE_HEIGHT * node.childrenLength + 'px',
+                        left:
+                          NODE_PADDING * node.level +
+                          ICON_WIDTH_OR_HEIGHT / 2 +
+                          'px',
+                        top: NODE_HEIGHT + 'px'
+                      }}
+                    ></span>
+                  )}
+                  {/* icon */}
+                  <span
+                    class="h-full flex items-center justify-center"
+                    style={{
+                      width: ICON_WIDTH_OR_HEIGHT + 'px'
+                    }}
+                    onClick={() => toggleNode(node)}
+                  >
+                    {node.hasOwnProperty('expanded')
+                      ? slots.icon
+                        ? slots.icon(node.expanded)
+                        : defaultIcon(node)
+                      : ''}
+                  </span>
+                  {node.label} {'========='} {node.childrenLength}
+                </div>
+              )
+          )}
         </div>
       )
     }

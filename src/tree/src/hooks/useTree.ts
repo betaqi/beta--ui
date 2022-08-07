@@ -10,17 +10,26 @@ export function useTree(treeData: IInnerTreeNode[]) {
   }
   const getExpandedTree = computed(() => {
     let excludeNodes: IInnerTreeNode[] = []
-    let result: IInnerTreeNode[] = []
     let expandedNodes = treeData.filter(
       node => node.hasOwnProperty('expanded') && !node.expanded
     )
-    if (expandedNodes.length > 0) {
-      excludeNodes = getChildren(expandedNodes)
-      result = treeData.filter(
-        node => !excludeNodes.some(exclud => exclud.id === node.id)
-      )
+    treeData.forEach(node => {
+      if (node.hasOwnProperty('expanded')) {
+        node.childrenLength = getChildren([node]).length
+      }
+    })
+
+    for (const node of expandedNodes) {
+      getParent(node)
     }
-    return excludeNodes.length > 0 ? result : treeData
+    excludeNodes = getChildren(expandedNodes)
+    treeData.forEach(node => {
+      if (excludeNodes.some(exclud => exclud.id === node.id))
+        node.isShow = false
+      else node.isShow = true
+    })
+
+    return treeData
   })
   const getChildren = (
     nodes: IInnerTreeNode[],
@@ -34,6 +43,15 @@ export function useTree(treeData: IInnerTreeNode[]) {
       getChildren(children, result)
     }
     return result
+  }
+  const getParent = (node: IInnerTreeNode) => {
+    let prentNode = treeData.find(item => node.parentId === item.id)
+    if (prentNode?.childrenLength && node.childrenLength) {
+      prentNode.childrenLength = prentNode.childrenLength - node.childrenLength
+    }
+    if (prentNode?.parentId) {
+      getParent(prentNode)
+    }
   }
   return {
     toggleNode,

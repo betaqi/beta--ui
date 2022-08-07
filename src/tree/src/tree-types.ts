@@ -8,6 +8,7 @@ export interface ITreeNode {
   checked?: boolean
   expanded?: boolean
   inChecked?: boolean
+  childrenLength?: number
 
   disableSelect?: boolean
   disableCheck?: boolean
@@ -17,6 +18,7 @@ export interface IInnerTreeNode extends ITreeNode {
   parentId?: string
   level: number
   isLeaf?: boolean
+  isShow: boolean
 }
 
 export const treeProps = {

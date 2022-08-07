@@ -8,6 +8,7 @@ export function generateInnerTree(
   return tree.reduce((prev, curr) => {
     let o = { ...curr } as IInnerTreeNode
     o.level = level
+    o.isShow = true
     if (JSON.stringify(path) !== '{}') o.parentId = path.id
     if (curr.children) {
       o.expanded = true

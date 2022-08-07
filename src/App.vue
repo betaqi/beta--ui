@@ -30,7 +30,17 @@ const tree = [
         children: [
           {
             label: 'src',
-            id: 'src'
+            id: 'src',
+            children: [
+              {
+                label: 'src1',
+                id: 'src1'
+              },
+              {
+                label: 'README1.md',
+                id: 'README.md1'
+              }
+            ]
           },
           {
             label: 'README.md',
