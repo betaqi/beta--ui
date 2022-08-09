@@ -23,9 +23,13 @@ export interface IInnerTreeNode extends ITreeNode {
 
 export const treeProps = {
   data: {
-    type: Object as PropType<IInnerTreeNode[]>,
+    type: Object as PropType<ITreeNode[]>,
     default: () => [],
     require: true
+  },
+  draggable: {
+    type: Boolean,
+    default: false
   }
 } as const
 

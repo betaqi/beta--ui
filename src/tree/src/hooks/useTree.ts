@@ -65,6 +65,7 @@ export function useTree(tree: ITreeNode[]) {
 
   return {
     toggleNode,
-    getExpandedTree
+    getExpandedTree,
+    getChildren
   }
 }
