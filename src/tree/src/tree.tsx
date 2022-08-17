@@ -11,8 +11,9 @@ export default defineComponent({
   name: 'STree',
   props: treeProps,
   setup(props: TreeProps, { slots, emit }) {
-    const { data: treeData, draggable } = $(props)
-    const { toggleNode, getExpandedTree, getChildren } = useTree(treeData)
+    const { data: treeData, draggable, checkable } = $(props)
+    const { toggleNode, getExpandedTree, getChildren, toggleCheckNode } =
+      useTree(treeData)
     const { onMouseover, onMouseout } = mouseTree()
     const { dragstart, dragenter, dragleave, dragover, drop, dragend } =
       dropTree(getChildren)
@@ -86,6 +87,21 @@ export default defineComponent({
                         : defaultIcon(node)
                       : ''}
                   </span>
+                  {/* 复选框 */}
+                  {checkable && (
+                    <div class="checkbox-box">
+                      <div
+                        class="checkbox-icon"
+                        style={{
+                          backgroundColor:
+                            node.checked || node.half ? 'red' : ''
+                        }}
+                        onClick={() => toggleCheckNode(node)}
+                      >
+                        {node.checked ? '√' : node.half ? '-' : ''}
+                      </div>
+                    </div>
+                  )}
                   {node.label}
                 </div>
               )

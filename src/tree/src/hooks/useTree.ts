@@ -40,32 +40,62 @@ export function useTree(tree: ITreeNode[]) {
 
   const getChildren = (
     nodes: IInnerTreeNode[],
+    isRecursion: boolean = false, // 是否获取直接子节点
     result: IInnerTreeNode[] = []
   ) => {
     let children = treeData.filter(item =>
       nodes.some(node => node.id === item.parentId)
     )
-    if (children.length > 0) {
+    if (children.length > 0 && !isRecursion) {
       result.push(...children)
-      getChildren(children, result)
+      getChildren(children, false, result)
     }
-    return result
+    return isRecursion ? children : result
   }
 
   // 修改折叠节点所有祖先节点的childrenLength
   const setAllParentLength = (node: IInnerTreeNode) => {
-    let prentNode = treeData.find(item => node.parentId === item.id)
-    if (prentNode?.childrenLength && node.childrenLength) {
-      prentNode.childrenLength = prentNode.childrenLength - node.childrenLength
+    let parentNode = treeData.find(item => node.parentId === item.id)
+    if (parentNode?.childrenLength && node.childrenLength) {
+      parentNode.childrenLength =
+        parentNode.childrenLength - node.childrenLength
     }
-    if (prentNode?.parentId) {
-      setAllParentLength(prentNode)
+    if (parentNode?.parentId) {
+      setAllParentLength(parentNode)
+    }
+  }
+
+  const toggleCheckNode = (node: IInnerTreeNode) => {
+    node.checked = !node.checked
+    // 父->子联动
+    getChildren([node]).forEach(child => (child.checked = node.checked))
+    // 子->父联动
+    const parentNode = treeData.find(n => n.id === node.parentId)
+    if (!parentNode) return
+    checkParentSelect(parentNode)
+  }
+
+  const checkParentSelect = (parentNode: IInnerTreeNode) => {
+    const siblings = getChildren([parentNode], true)
+    const checkedSiblings = siblings.filter(item => item.checked)
+    if (checkedSiblings.length > 0) parentNode.half = true
+    if (checkedSiblings.length === 0) parentNode.half = false
+    if (checkedSiblings.length === siblings.length) {
+      parentNode.half = false
+      parentNode.checked = true
+      const grandNode = treeData.find(n => n.id === parentNode.parentId)
+      if (grandNode) checkParentSelect(grandNode)
+    } else {
+      parentNode.checked = false
+      const grandNode = treeData.find(n => n.id === parentNode.parentId)
+      if (grandNode) checkParentSelect(grandNode)
     }
   }
 
   return {
     toggleNode,
     getExpandedTree,
-    getChildren
+    getChildren,
+    toggleCheckNode
   }
 }

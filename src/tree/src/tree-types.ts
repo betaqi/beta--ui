@@ -9,6 +9,7 @@ export interface ITreeNode {
   expanded?: boolean
   inChecked?: boolean
   childrenLength?: number
+  half?: boolean
 
   disableSelect?: boolean
   disableCheck?: boolean
@@ -26,6 +27,10 @@ export const treeProps = {
     type: Object as PropType<ITreeNode[]>,
     default: () => [],
     require: true
+  },
+  checkable: {
+    type: Boolean,
+    default: false
   },
   draggable: {
     type: Boolean,

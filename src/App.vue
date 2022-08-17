@@ -1,7 +1,7 @@
 <template>
   <SButton type="primary" tertiary size="small">primary</SButton>
   <SButton type="default" size="small">default</SButton>
-  <STree :data="tree" draggable>
+  <STree :data="tree" draggable checkable>
     <template #icon="iconProps">{{ iconProps ? '🙉' : '🙈' }}</template>
   </STree>
 </template>
