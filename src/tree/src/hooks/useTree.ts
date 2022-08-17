@@ -67,6 +67,7 @@ export function useTree(tree: ITreeNode[]) {
 
   const toggleCheckNode = (node: IInnerTreeNode) => {
     node.checked = !node.checked
+    node.half = false
     // 父->子联动
     getChildren([node]).forEach(child => (child.checked = node.checked))
     // 子->父联动
