@@ -17,7 +17,7 @@ export default defineComponent({
     const { onMouseover, onMouseout } = mouseTree()
     const { dragstart, dragenter, dragleave, dragover, drop, dragend } =
       dropTree(getChildren)
-    const defaultIcon = (node: IInnerTreeNode) => {
+    const defaultswitcherIcon = (node: IInnerTreeNode) => {
       return (
         <svg
           style={{
@@ -73,7 +73,7 @@ export default defineComponent({
                       }}
                     ></span>
                   )}
-                  {/* icon */}
+                  {/* switcherIcon */}
                   <span
                     class="h-full flex items-center justify-center"
                     style={{
@@ -82,9 +82,9 @@ export default defineComponent({
                     onClick={() => toggleNode(node)}
                   >
                     {node.hasOwnProperty('expanded')
-                      ? slots.icon
-                        ? slots.icon(node.expanded)
-                        : defaultIcon(node)
+                      ? slots.switcherIcon
+                        ? slots.switcherIcon(node.expanded)
+                        : defaultswitcherIcon(node)
                       : ''}
                   </span>
                   {/* 复选框 */}
@@ -102,6 +102,18 @@ export default defineComponent({
                       </div>
                     </div>
                   )}
+                  {/* icon */}
+                  {slots.icon && (
+                    <span
+                      class="h-full flex items-center justify-center"
+                      style={{
+                        width: ICON_WIDTH_OR_HEIGHT + 'px'
+                      }}
+                    >
+                      {slots.icon(node)}
+                    </span>
+                  )}
+
                   {node.label}
                 </div>
               )

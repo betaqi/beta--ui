@@ -1,8 +1,12 @@
 <template>
   <SButton type="primary" tertiary size="small">primary</SButton>
   <SButton type="default" size="small">default</SButton>
-  <STree :data="tree" draggable checkable>
-    <template #icon="iconProps">{{ iconProps ? '🙉' : '🙈' }}</template>
+  <STree :data="tree" draggable>
+    <template #switcherIcon="expanded">{{ expanded ? '🙉' : '🙈' }}</template>
+    <!-- <template #icon="node"
+      ><img v-if="node.isLeaf" src="./assets/file-paste.svg" alt="" />
+      <img v-else src="./assets/file.svg" alt="" />
+    </template> -->
   </STree>
 </template>
 
