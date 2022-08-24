@@ -69,7 +69,10 @@ export function useTree(tree: ITreeNode[]) {
     node.checked = !node.checked
     node.half = false
     // 父->子联动
-    getChildren([node]).forEach(child => (child.checked = node.checked))
+    getChildren([node]).forEach(child => {
+      child.checked = node.checked
+      child.half = false
+    })
     // 子->父联动
     const parentNode = treeData.find(n => n.id === node.parentId)
     if (!parentNode) return
