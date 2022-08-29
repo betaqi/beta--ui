@@ -22,3 +22,26 @@ export function generateInnerTree(
     }
   }, [] as IInnerTreeNode[])
 }
+
+export function getLabelName(child: IInnerTreeNode[]) {
+  let lastStr = ''
+  let allLastStr = []
+  for (const { label } of child) {
+    const name = label.indexOf('new node ')
+    if (name === 0) {
+      const index = label.lastIndexOf(' ')
+      const lastStr = label.substring(index + 1, label.length)
+      allLastStr.push(lastStr)
+    }
+  }
+
+  const num = allLastStr.length + 2
+  for (let index = 2; index < num; index++) {
+    if (!allLastStr.includes(index.toString())) {
+      lastStr = index.toString()
+      break
+    }
+  }
+
+  return `new node ${lastStr}`
+}

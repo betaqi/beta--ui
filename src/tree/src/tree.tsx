@@ -10,9 +10,20 @@ export default defineComponent({
 
   setup(props: TreeProps, { slots, emit }) {
     const { data: treeData } = $(props)
-    const { toggleNode, getExpandedTree, toggleCheckNode } = useTree(treeData)
     const { onMouseover, onMouseout } = mouseTree()
-    provide('TREE_UTILS', { toggleNode, toggleCheckNode })
+    const {
+      toggleNode,
+      getExpandedTree,
+      toggleCheckNode,
+      appendNode,
+      removeNode
+    } = useTree(treeData)
+    provide('TREE_UTILS', {
+      toggleNode,
+      toggleCheckNode,
+      appendNode,
+      removeNode
+    })
 
     const defaultswitcherIcon = (node: IInnerTreeNode) => {
       return (
@@ -33,11 +44,7 @@ export default defineComponent({
 
     return () => {
       return (
-        <div
-          style={{ userSelect: 'none' }}
-          onMouseover={e => onMouseover(e)}
-          onMouseout={e => onMouseout(e)}
-        >
+        <div style={{ userSelect: 'none' }}>
           {getExpandedTree.value.map(
             node =>
               node.isShow && (

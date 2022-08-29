@@ -11,6 +11,10 @@ export const treeNodeProps = {
     type: Boolean,
     default: false
   },
+  operable: {
+    type: Boolean,
+    default: false
+  },
   draggable: {
     type: Boolean,
     default: false
@@ -20,6 +24,8 @@ export const treeNodeProps = {
 export type TreeUtils = {
   toggleNode: (treeNode: IInnerTreeNode) => void
   toggleCheckNode: (treeNode: IInnerTreeNode) => void
+  appendNode: (treeNode: IInnerTreeNode) => void
+  removeNode: (treeNode: IInnerTreeNode) => void
 }
 
 export type TreeNodeProps = ExtractPropTypes<typeof treeNodeProps>

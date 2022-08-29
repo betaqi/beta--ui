@@ -1,7 +1,7 @@
 <template>
   <SButton type="primary" tertiary size="small">primary</SButton>
   <SButton type="default" size="small">default</SButton>
-  <STree :data="tree" checkable>
+  <STree :data="tree" checkable operable>
     <template #switcherIcon="expanded">{{ expanded ? '🙉' : '🙈' }}</template>
     <!-- <template #icon="node"
       ><img v-if="node.isLeaf" src="./assets/file-paste.svg" alt="" />

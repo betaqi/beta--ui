@@ -1,9 +1,10 @@
 import { IInnerTreeNode, ITreeNode } from '../tree-types'
-import { computed, reactive } from 'vue'
-import { generateInnerTree } from '../utils'
+import { computed, ref } from 'vue'
+import { generateInnerTree, getLabelName } from '../utils'
+import { $ref } from 'vue/macros'
 
 export function useTree(tree: ITreeNode[]) {
-  let treeData: IInnerTreeNode[] = reactive(generateInnerTree(tree))
+  let treeData: IInnerTreeNode[] = $ref(generateInnerTree(tree))
   const toggleNode = (node: IInnerTreeNode) => {
     let find = treeData.find(
       item => item.hasOwnProperty('expanded') && item.id === node.id
@@ -96,10 +97,54 @@ export function useTree(tree: ITreeNode[]) {
     }
   }
 
+  const getIndex = (node: IInnerTreeNode) => {
+    return treeData.findIndex(item => item.id === node.id)
+  }
+
+  const appendNode = (parent: IInnerTreeNode) => {
+    let length = 0
+    const child = getChildren([parent], true)
+    const lastChild = child[child.length - 1]
+    const label = getLabelName(child)
+    let insertedIndex = getIndex(parent) + 1
+
+    if (lastChild) {
+      insertedIndex = getIndex(lastChild) + 1
+      length = getChildren([lastChild]).length
+    }
+
+    parent.expanded = true
+    parent.isLeaf = false
+    const newNode = ref({
+      label,
+      level: parent.level + 1,
+      parentId: parent.id,
+      isLeaf: true,
+      isShow: true,
+      id: (Math.random() * 10000).toString()
+    })
+
+    treeData.splice(insertedIndex + length, 0, newNode.value)
+  }
+
+  const removeNode = (node: IInnerTreeNode) => {
+    const ids = getChildren([node]).map(child => child.id)
+    treeData = treeData.filter(
+      item => item.id !== node.id && !ids.includes(item.id)
+    )
+
+    const parentNode = treeData.find(n => n.id === node.parentId)
+    if (parentNode && getChildren([parentNode]).length === 0) {
+      parentNode.isLeaf = true
+      Reflect.deleteProperty(parentNode, 'expanded')
+    }
+  }
+
   return {
     toggleNode,
     getExpandedTree,
-    getChildren,
-    toggleCheckNode
+    toggleCheckNode,
+    appendNode,
+    removeNode
   }
 }

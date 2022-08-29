@@ -1,6 +1,7 @@
-import { defineComponent, inject } from 'vue'
+import { defineComponent, inject, ref } from 'vue'
 import { TreeNodeProps, treeNodeProps, TreeUtils } from './tree-node-types'
-import { IInnerTreeNode } from '../src/tree-types'
+import { mouseTree } from '../src/hooks/index'
+
 import { $ } from 'vue/macros'
 const NODE_HEIGHT = 30
 const NODE_PADDING = 16
@@ -11,31 +12,27 @@ export default defineComponent({
   props: treeNodeProps,
 
   setup(props: TreeNodeProps, { slots, emit }) {
-    const { node, checkable, draggable } = $(props)
-    const { toggleNode, toggleCheckNode } = inject('TREE_UTILS') as TreeUtils
+    const { node, checkable, operable } = $(props)
+    const { toggleNode, toggleCheckNode, appendNode, removeNode } = inject(
+      'TREE_UTILS'
+    ) as TreeUtils
+    const { onMouseover, onMouseout } = mouseTree()
 
-    const defaultswitcherIcon = (node: IInnerTreeNode) => {
-      return (
-        <svg
-          style={{
-            width: '18px',
-            height: '18px',
-            display: 'inline-block',
-            transform: node.expanded ? 'rotate(90deg)' : ''
-          }}
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path fill="currentColor" d="M384 192v640l384-320.064z"></path>
-        </svg>
-      )
-    }
+    const isShowOperable = ref(false)
 
     return () => {
       return (
         <div
           class="s-tree-item relative flex items-center"
           title={node.label}
+          onMousemove={e => {
+            isShowOperable.value = true
+            onMouseover(e)
+          }}
+          onMouseleave={e => {
+            isShowOperable.value = false
+            onMouseout(e)
+          }}
           style={{
             paddingLeft: NODE_PADDING * node.level + 'px',
             height: NODE_HEIGHT + 'px'
@@ -80,6 +77,16 @@ export default defineComponent({
           {/* icon */}
           {slots.icon!()}
           {node.label}
+          {operable && isShowOperable.value && (
+            <div class="inline-flex ml-1">
+              <span class="w-4 text-center" onclick={() => appendNode(node)}>
+                +
+              </span>
+              <span class="w-4 text-center" onclick={() => removeNode(node)}>
+                -
+              </span>
+            </div>
+          )}
         </div>
       )
     }

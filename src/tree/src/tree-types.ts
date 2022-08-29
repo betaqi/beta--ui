@@ -32,6 +32,10 @@ export const treeProps = {
     type: Boolean,
     default: false
   },
+  operable: {
+    type: Boolean,
+    default: false
+  },
   draggable: {
     type: Boolean,
     default: false
