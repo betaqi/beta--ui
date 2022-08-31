@@ -25,7 +25,6 @@ export function useOperable(
       level: parent.level + 1,
       parentId: parent.id,
       isLeaf: true,
-      isShow: true,
       id: (Math.random() * 10000).toString()
     })
 

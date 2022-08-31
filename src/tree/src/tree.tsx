@@ -45,22 +45,19 @@ export default defineComponent({
     return () => {
       return (
         <div style={{ userSelect: 'none' }}>
-          {ExpandedTree.value.map(
-            node =>
-              node.isShow && (
-                <STreeNode node={node} {...props}>
-                  {{
-                    icon: () => (slots.icon ? slots.icon(node) : ''),
-                    switcherIcon: () =>
-                      node.hasOwnProperty('expanded')
-                        ? slots.switcherIcon
-                          ? slots.switcherIcon(node.expanded)
-                          : defaultswitcherIcon(node)
-                        : ''
-                  }}
-                </STreeNode>
-              )
-          )}
+          {ExpandedTree.value.map(node => (
+            <STreeNode node={node} {...props}>
+              {{
+                icon: () => (slots.icon ? slots.icon(node) : ''),
+                switcherIcon: () =>
+                  node.hasOwnProperty('expanded')
+                    ? slots.switcherIcon
+                      ? slots.switcherIcon(node.expanded)
+                      : defaultswitcherIcon(node)
+                    : ''
+              }}
+            </STreeNode>
+          ))}
         </div>
       )
     }

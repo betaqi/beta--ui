@@ -4,6 +4,7 @@ import { UseCore } from './use-tree-type'
 
 export function useCore(treeData: Ref<IInnerTreeNode[]>): UseCore {
   const ExpandedTree = computed(() => {
+    let result: IInnerTreeNode[] = []
     let excludeNodes: IInnerTreeNode[] = []
     let expandedNodes = treeData.value.filter(
       node => node.hasOwnProperty('expanded') && !node.expanded
@@ -17,14 +18,16 @@ export function useCore(treeData: Ref<IInnerTreeNode[]>): UseCore {
     for (const node of expandedNodes) {
       setAllParentLength(node)
     }
-    excludeNodes = getChildren(expandedNodes)
-    treeData.value.forEach(node => {
-      if (excludeNodes.some(exclud => exclud.id === node.id))
-        node.isShow = false
-      else node.isShow = true
-    })
 
-    return treeData.value
+    for (const item of treeData.value) {
+      // 如果遍历的节点在排除列表中，跳过本次循环
+      if (excludeNodes.map(node => node.id).includes(item.id)) continue
+      // 当前节点收起，它的子节点应该被排除掉
+      console.log(excludeNodes)
+      if (!item.expanded) excludeNodes = getChildren([item])
+      result.push(item)
+    }
+    return result
   })
 
   const getChildren = (

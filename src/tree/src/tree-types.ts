@@ -19,7 +19,6 @@ export interface IInnerTreeNode extends ITreeNode {
   parentId?: string
   level: number
   isLeaf?: boolean
-  isShow: boolean
 }
 
 export const treeProps = {
