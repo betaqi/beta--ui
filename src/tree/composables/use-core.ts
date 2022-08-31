@@ -53,9 +53,10 @@ export function useCore(treeData: Ref<IInnerTreeNode[]>): UseCore {
       setAllParentLength(parentNode)
     }
   }
+
   const getIndex = (node: IInnerTreeNode) => {
     return treeData.value.findIndex(item => item.id === node.id)
   }
 
-  return { ExpandedTree, getChildren, setAllParentLength, getIndex }
+  return { ExpandedTree, getChildren, getIndex }
 }

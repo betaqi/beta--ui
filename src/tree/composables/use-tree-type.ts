@@ -8,7 +8,6 @@ export type UseCore = {
     isRecursion?: boolean, // 是否获取直接子节点
     result?: IInnerTreeNode[]
   ) => IInnerTreeNode[]
-  setAllParentLength: (node: IInnerTreeNode) => void
   getIndex: (node: IInnerTreeNode) => number
 }
 
