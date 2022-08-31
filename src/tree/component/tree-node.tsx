@@ -1,7 +1,5 @@
 import { defineComponent, inject, ref } from 'vue'
 import { TreeNodeProps, treeNodeProps, TreeUtils } from './tree-node-types'
-import { mouseTree } from '../src/hooks/index'
-
 import { $ } from 'vue/macros'
 const NODE_HEIGHT = 30
 const NODE_PADDING = 16
@@ -16,7 +14,6 @@ export default defineComponent({
     const { toggleNode, toggleCheckNode, appendNode, removeNode } = inject(
       'TREE_UTILS'
     ) as TreeUtils
-    const { onMouseover, onMouseout } = mouseTree()
 
     const isShowOperable = ref(false)
 
@@ -27,11 +24,9 @@ export default defineComponent({
           title={node.label}
           onMousemove={e => {
             isShowOperable.value = true
-            onMouseover(e)
           }}
           onMouseleave={e => {
             isShowOperable.value = false
-            onMouseout(e)
           }}
           style={{
             paddingLeft: NODE_PADDING * node.level + 'px',

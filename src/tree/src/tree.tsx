@@ -1,7 +1,7 @@
 import { defineComponent, provide } from 'vue'
 import { $ } from 'vue/macros'
 import { IInnerTreeNode, TreeProps, treeProps } from './tree-types'
-import { useTree, mouseTree } from './hooks/index'
+import { useTree } from '../composables/use-tree'
 import STreeNode from '../component/tree-node'
 
 export default defineComponent({
@@ -10,14 +10,14 @@ export default defineComponent({
 
   setup(props: TreeProps, { slots, emit }) {
     const { data: treeData } = $(props)
-    const { onMouseover, onMouseout } = mouseTree()
     const {
       toggleNode,
-      getExpandedTree,
+      ExpandedTree,
       toggleCheckNode,
       appendNode,
       removeNode
     } = useTree(treeData)
+
     provide('TREE_UTILS', {
       toggleNode,
       toggleCheckNode,
@@ -45,7 +45,7 @@ export default defineComponent({
     return () => {
       return (
         <div style={{ userSelect: 'none' }}>
-          {getExpandedTree.value.map(
+          {ExpandedTree.value.map(
             node =>
               node.isShow && (
                 <STreeNode node={node} {...props}>
