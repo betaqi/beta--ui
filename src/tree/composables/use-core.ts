@@ -6,18 +6,13 @@ export function useCore(treeData: Ref<IInnerTreeNode[]>): UseCore {
   const ExpandedTree = computed(() => {
     let result: IInnerTreeNode[] = []
     let excludeNodes: IInnerTreeNode[] = []
-    let expandedNodes = treeData.value.filter(
-      node => node.hasOwnProperty('expanded') && !node.expanded
-    )
+
     treeData.value.forEach(node => {
       if (node.hasOwnProperty('expanded')) {
         // 为可折叠节点增加childrenLength属性
         node.childrenLength = getChildren([node]).length
       }
     })
-    for (const node of expandedNodes) {
-      setAllParentLength(node)
-    }
 
     for (const item of treeData.value) {
       // 如果遍历的节点在排除列表中，跳过本次循环
@@ -26,6 +21,13 @@ export function useCore(treeData: Ref<IInnerTreeNode[]>): UseCore {
       console.log(excludeNodes)
       if (!item.expanded) excludeNodes = getChildren([item])
       result.push(item)
+    }
+
+    let expandedNodes = result.filter(
+      node => node.hasOwnProperty('expanded') && !node.expanded
+    )
+    for (const node of expandedNodes) {
+      setAllParentLength(node)
     }
     return result
   })
