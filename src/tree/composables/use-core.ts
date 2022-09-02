@@ -18,7 +18,6 @@ export function useCore(treeData: Ref<IInnerTreeNode[]>): UseCore {
       // 如果遍历的节点在排除列表中，跳过本次循环
       if (excludeNodes.map(node => node.id).includes(item.id)) continue
       // 当前节点收起，它的子节点应该被排除掉
-      console.log(excludeNodes)
       if (!item.expanded) excludeNodes = getChildren([item])
       result.push(item)
     }

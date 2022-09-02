@@ -17,11 +17,11 @@ export function useOperable(
       insertedIndex = getIndex(lastChild) + 1
       length = getChildren([lastChild]).length
     }
-
     parent.expanded = true
     parent.isLeaf = false
     const newNode = ref({
       label,
+      checked: parent.checked,
       level: parent.level + 1,
       parentId: parent.id,
       isLeaf: true,
