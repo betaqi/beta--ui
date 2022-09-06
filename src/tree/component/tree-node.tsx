@@ -1,6 +1,8 @@
 import { defineComponent, inject, ref } from 'vue'
-import { TreeNodeProps, treeNodeProps, TreeUtils } from './tree-node-types'
+import { TreeNodeProps, treeNodeProps } from './tree-node-types'
 import { $ } from 'vue/macros'
+import type { TreeUtils } from '../composables/use-tree-type'
+import type { IInnerTreeNode } from '../src/tree-types'
 const NODE_HEIGHT = 30
 const NODE_PADDING = 16
 const ICON_WIDTH_OR_HEIGHT = 25
@@ -16,6 +18,17 @@ export default defineComponent({
     ) as TreeUtils
 
     const isShowOperable = ref(false)
+
+    const isShowLine = (node: IInnerTreeNode) => {
+      if (
+        !node.isLeaf &&
+        node.expanded &&
+        node.childrenLength &&
+        node.childrenLength > 0
+      )
+        return true
+      return false
+    }
 
     return () => {
       return (
@@ -34,7 +47,7 @@ export default defineComponent({
           }}
         >
           {/* 参照线 */}
-          {!node.isLeaf && node.expanded && node.childrenLength && (
+          {isShowLine(node) && node.childrenLength && (
             <span
               class="absolute w-px bg-gray-300"
               style={{

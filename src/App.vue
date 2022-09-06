@@ -1,7 +1,7 @@
 <template>
   <SButton type="primary" tertiary size="small">primary</SButton>
   <SButton type="default" size="small">default</SButton>
-  <STree :data="tree" checkable operable>
+  <STree :data="tree" checkable operable @lazy-load="lazyLoad">
     <template #switcherIcon="expanded">{{ expanded ? '🙉' : '🙈' }}</template>
     <!-- <template #icon="node"
       ><img v-if="node.isLeaf" src="./assets/file-paste.svg" alt="" />
@@ -21,36 +21,8 @@ const tree = [
   {
     label: 'packages',
     id: 'packages',
-    children: [
-      {
-        label: 'plugin-vue',
-        id: 'plugin-vue'
-      },
-      {
-        label: 'vite',
-        id: 'vite',
-        children: [
-          {
-            label: 'src',
-            id: 'src',
-            children: [
-              {
-                label: 'src1',
-                id: 'src1'
-              },
-              {
-                label: 'README1.md',
-                id: 'README.md1'
-              }
-            ]
-          },
-          {
-            label: 'README.md',
-            id: 'README.md'
-          }
-        ]
-      }
-    ]
+    isLazy: true,
+    children: []
   },
   {
     label: 'scripts',
@@ -101,6 +73,42 @@ const tree = [
     id: 'pnpm-workspace.yaml'
   }
 ]
+
+const data = [
+  {
+    label: 'plugin-vue',
+    id: 'plugin-vue'
+  },
+  {
+    label: 'vite',
+    id: 'vite',
+    children: [
+      {
+        label: 'src',
+        id: 'src',
+        children: [
+          {
+            label: 'src1',
+            id: 'src1'
+          },
+          {
+            label: 'README1.md',
+            id: 'README.md1'
+          }
+        ]
+      },
+      {
+        label: 'README.md',
+        id: 'README.md'
+      }
+    ]
+  }
+]
+const lazyLoad = (node: any, cb: any) => {
+  setTimeout(() => {
+    cb({ node, treeItems: data })
+  }, 2000)
+}
 </script>
 
 <style lang="scss"></style>

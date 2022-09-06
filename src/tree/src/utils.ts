@@ -13,6 +13,7 @@ export function generateInnerTree(
     if (curr.children) {
       o.half = false
       o.expanded = true
+      if (o.isLazy) o.expanded = false
       delete o.children
       return prev.concat(o, generateInnerTree(curr.children, level, o))
     } else {

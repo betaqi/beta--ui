@@ -62,5 +62,9 @@ export function useCore(treeData: Ref<IInnerTreeNode[]>): UseCore {
     return treeData.value.findIndex(item => item.id === node.id)
   }
 
-  return { ExpandedTree, getChildren, getIndex }
+  const getNode = (node: IInnerTreeNode) => {
+    return treeData.value.find(item => item.id === node.id)
+  }
+
+  return { ExpandedTree, getChildren, getIndex, getNode }
 }

@@ -21,11 +21,4 @@ export const treeNodeProps = {
   }
 } as const
 
-export type TreeUtils = {
-  toggleNode: (treeNode: IInnerTreeNode) => void
-  toggleCheckNode: (treeNode: IInnerTreeNode) => void
-  appendNode: (treeNode: IInnerTreeNode) => void
-  removeNode: (treeNode: IInnerTreeNode) => void
-}
-
 export type TreeNodeProps = ExtractPropTypes<typeof treeNodeProps>

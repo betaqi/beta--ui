@@ -1,5 +1,5 @@
 import { ComputedRef, Ref } from 'vue'
-import { IInnerTreeNode } from '../src/tree-types'
+import { IInnerTreeNode, ITreeNode } from '../src/tree-types'
 
 export type UseCore = {
   ExpandedTree: ComputedRef<IInnerTreeNode[]>
@@ -9,6 +9,7 @@ export type UseCore = {
     result?: IInnerTreeNode[]
   ) => IInnerTreeNode[]
   getIndex: (node: IInnerTreeNode) => number
+  getNode: (node: IInnerTreeNode) => IInnerTreeNode | undefined
 }
 
 export type UseToogle = {
@@ -23,6 +24,12 @@ export type UseOperable = {
   appendNode: (parent: IInnerTreeNode) => void
   removeNode: (node: IInnerTreeNode) => void
 }
+
+export type UseLazyLoad = {
+  lazyloadNodes: (node: IInnerTreeNode) => void
+}
+
+export type LazyLoadResult = { node: IInnerTreeNode; treeItems: ITreeNode[] }
 
 export type TreeUtils = {
   treeData: Ref<IInnerTreeNode[]>

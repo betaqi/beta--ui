@@ -1,4 +1,4 @@
-import { defineComponent, provide } from 'vue'
+import { defineComponent, provide, SetupContext } from 'vue'
 import { $ } from 'vue/macros'
 import { IInnerTreeNode, TreeProps, treeProps } from './tree-types'
 import { useTree } from '../composables/use-tree'
@@ -7,8 +7,10 @@ import STreeNode from '../component/tree-node'
 export default defineComponent({
   name: 'STree',
   props: treeProps,
+  emits: ['lazy-load'],
 
-  setup(props: TreeProps, { slots, emit }) {
+  setup(props: TreeProps, context: SetupContext) {
+    const { slots } = context
     const { data: treeData } = $(props)
     const {
       toggleNode,
@@ -16,7 +18,7 @@ export default defineComponent({
       toggleCheckNode,
       appendNode,
       removeNode
-    } = useTree(treeData)
+    } = useTree(treeData, context)
 
     provide('TREE_UTILS', {
       toggleNode,
