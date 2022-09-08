@@ -74,7 +74,7 @@ export default defineComponent({
               <div
                 class="checkbox-icon"
                 style={{
-                  backgroundColor: node.checked || node.half ? 'red' : ''
+                  backgroundColor: node.checked || node.half ? '#0984e3' : ''
                 }}
                 onClick={() => toggleCheckNode(node)}
               >
