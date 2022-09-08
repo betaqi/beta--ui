@@ -7,6 +7,9 @@
       ><img v-if="node.isLeaf" src="./assets/file-paste.svg" alt="" />
       <img v-else src="./assets/file.svg" alt="" />
     </template> -->
+    <template #loading>
+      <img src="../public/loading.svg" />
+    </template>
   </STree>
 </template>
 

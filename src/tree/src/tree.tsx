@@ -56,7 +56,9 @@ export default defineComponent({
                     ? slots.switcherIcon
                       ? slots.switcherIcon(node.expanded)
                       : defaultswitcherIcon(node)
-                    : ''
+                    : '',
+                loading: () =>
+                  slots.loading ? slots.loading(node) : <span>loading...</span>
               }}
             </STreeNode>
           ))}

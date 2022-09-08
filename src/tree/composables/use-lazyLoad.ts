@@ -23,7 +23,7 @@ export function useLazyLoad(
       const childNodes = ref<IInnerTreeNode[]>(
         generateInnerTree(result.treeItems, node.level)
       )
-      debugger
+
       setPrent(node, childNodes)
       insertChildNodes(node, childNodes)
       const childLength = getChildren([node]).length
