@@ -3,7 +3,7 @@ import { TreeNodeProps, treeNodeProps } from './tree-node-types'
 import { $ } from 'vue/macros'
 import type { TreeUtils } from '../composables/use-tree-type'
 import type { IInnerTreeNode } from '../src/tree-types'
-const NODE_HEIGHT = 30
+const NODE_HEIGHT = 34
 const NODE_PADDING = 16
 const ICON_WIDTH_OR_HEIGHT = 25
 
@@ -12,10 +12,31 @@ export default defineComponent({
   props: treeNodeProps,
 
   setup(props: TreeNodeProps, { slots, emit }) {
-    const { node, checkable, operable } = $(props)
-    const { toggleNode, toggleCheckNode, appendNode, removeNode } = inject(
-      'TREE_UTILS'
-    ) as TreeUtils
+    const { node, checkable, operable, drag } = $(props)
+
+    const {
+      toggleNode,
+      toggleCheckNode,
+      appendNode,
+      removeNode,
+      dragStart,
+      dragOver,
+      dragleave,
+      drop,
+      dragend
+    } = inject('TREE_UTILS') as TreeUtils
+
+    let dragProps = {}
+    if (drag) {
+      dragProps = {
+        draggable: true,
+        onDragstart: (e: DragEvent) => dragStart(e, node),
+        onDragover: (e: DragEvent) => dragOver(e, node),
+        onDragleave: (e: DragEvent) => dragleave(e),
+        onDrop: (e: DragEvent) => drop(e, node),
+        onDragend: (e: DragEvent) => dragend(e)
+      }
+    }
 
     const isShowOperable = ref(false)
 
@@ -33,8 +54,7 @@ export default defineComponent({
     return () => {
       return (
         <div
-          class="s-tree-item relative flex items-center"
-          title={node.label}
+          class="s-tree-item relative hover:bg-gray-200"
           onMousemove={e => {
             isShowOperable.value = true
           }}
@@ -59,43 +79,57 @@ export default defineComponent({
             ></span>
           )}
           {/* switcherIcon */}
-          <span
-            class="h-full flex items-center justify-center"
+          <div
+            {...dragProps}
+            id={node.id}
+            class="node-content w-full h-full flex items-center"
             style={{
-              width: ICON_WIDTH_OR_HEIGHT + 'px'
+              marginLeft: !node.hasOwnProperty('expanded')
+                ? ICON_WIDTH_OR_HEIGHT + 'px'
+                : ''
             }}
-            onClick={() => toggleNode(node)}
           >
-            {slots.switcherIcon!()}
-          </span>
-          {/* 复选框 */}
-          {checkable && (
-            <div class="checkbox-box">
-              <div
-                class="checkbox-icon"
-                style={{
-                  backgroundColor: node.checked || node.half ? '#0984e3' : ''
-                }}
-                onClick={() => toggleCheckNode(node)}
-              >
-                {node.checked ? '√' : node.half ? '-' : ''}
+            {!node.loading
+              ? node.hasOwnProperty('expanded') && (
+                  <span
+                    class="h-full flex items-center justify-center"
+                    style={{
+                      width: ICON_WIDTH_OR_HEIGHT + 'px'
+                    }}
+                    onClick={() => toggleNode(node)}
+                  >
+                    {slots.switcherIcon!()}
+                  </span>
+                )
+              : slots.loading!()}
+            {/* 复选框 */}
+            {checkable && (
+              <div class="checkbox-box">
+                <div
+                  class="checkbox-icon"
+                  style={{
+                    backgroundColor: node.checked || node.half ? '#0984e3' : ''
+                  }}
+                  onClick={() => toggleCheckNode(node)}
+                >
+                  {node.checked ? '√' : node.half ? '-' : ''}
+                </div>
               </div>
-            </div>
-          )}
-          {/* icon */}
-          {slots.icon!()}
-          {node.label}
-          {node.loading && slots.loading!()}
-          {operable && isShowOperable.value && (
-            <div class="inline-flex ml-1">
-              <span class="w-4 text-center" onclick={() => appendNode(node)}>
-                +
-              </span>
-              <span class="w-4 text-center" onclick={() => removeNode(node)}>
-                -
-              </span>
-            </div>
-          )}
+            )}
+            {/* icon */}
+            {slots.icon!()}
+            {node.label}
+            {operable && isShowOperable.value && (
+              <div class="inline-flex ml-1">
+                <span class="w-4 text-center" onclick={() => appendNode(node)}>
+                  +
+                </span>
+                <span class="w-4 text-center" onclick={() => removeNode(node)}>
+                  -
+                </span>
+              </div>
+            )}
+          </div>
         </div>
       )
     }

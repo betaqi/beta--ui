@@ -24,7 +24,7 @@ export function useLazyLoad(
         generateInnerTree(result.treeItems, node.level)
       )
 
-      setPrent(node, childNodes)
+      setParent(node, childNodes)
       insertChildNodes(node, childNodes)
       const childLength = getChildren([node]).length
       node.childrenNodeCount = childLength
@@ -46,7 +46,7 @@ export function useLazyLoad(
 }
 
 // 设置父级
-const setPrent = (node: IInnerTreeNode, childNodes: Ref<IInnerTreeNode[]>) => {
+const setParent = (node: IInnerTreeNode, childNodes: Ref<IInnerTreeNode[]>) => {
   childNodes.value.forEach(item => {
     if (item.level - 1 === node.level && !item.parentId) {
       item.parentId = node.id

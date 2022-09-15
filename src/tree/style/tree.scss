@@ -1,0 +1,18 @@
+.node-content {
+  border: 3px solid transparent;
+}
+.node-drop {
+  &-prev {
+    border-top: 3px solid #63e2b7 !important;
+  }
+  &-inner {
+    border: 3px solid #63e2b7 !important;
+  }
+  &-next {
+    border-bottom: 3px solid #63e2b7 !important; 
+  }
+}
+.node-drop-parent {
+  border: 3px solid #63e2b7 !important;
+
+}

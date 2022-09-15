@@ -3,6 +3,7 @@ import { $ } from 'vue/macros'
 import { IInnerTreeNode, TreeProps, treeProps } from './tree-types'
 import { useTree } from '../composables/use-tree'
 import STreeNode from '../component/tree-node'
+import '../style/tree.scss'
 
 export default defineComponent({
   name: 'STree',
@@ -17,14 +18,24 @@ export default defineComponent({
       ExpandedTree,
       toggleCheckNode,
       appendNode,
-      removeNode
+      removeNode,
+      dragStart,
+      dragOver,
+      dragleave,
+      drop,
+      dragend
     } = useTree(treeData, context)
 
     provide('TREE_UTILS', {
       toggleNode,
       toggleCheckNode,
       appendNode,
-      removeNode
+      removeNode,
+      dragStart,
+      dragOver,
+      dragleave,
+      drop,
+      dragend
     })
 
     const defaultswitcherIcon = (node: IInnerTreeNode) => {
@@ -46,7 +57,7 @@ export default defineComponent({
 
     return () => {
       return (
-        <div style={{ userSelect: 'none' }}>
+        <div style={{ userSelect: 'none', width: '1000px' }}>
           {ExpandedTree.value.map(node => (
             <STreeNode node={node} {...props}>
               {{

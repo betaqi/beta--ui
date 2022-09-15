@@ -1,7 +1,7 @@
 <template>
   <SButton type="primary" tertiary size="small">primary</SButton>
   <SButton type="default" size="small">default</SButton>
-  <STree :data="tree" checkable operable @lazy-load="lazyLoad">
+  <STree :data="tree" checkable drag operable @lazy-load="lazyLoad">
     <template #switcherIcon="expanded">{{ expanded ? '🙉' : '🙈' }}</template>
     <!-- <template #icon="node"
       ><img v-if="node.isLeaf" src="./assets/file-paste.svg" alt="" />
@@ -33,39 +33,39 @@ const tree = [
     children: [
       {
         label: 'release.ts',
-        id: 'release.ts',
+        id: 'releasets',
         children: [
           {
             label: 'release2.ts',
-            id: 'release2.ts'
+            id: 'release2ts'
           },
           {
             label: 'verifyCommit2.ts',
-            id: 'verifyCommit2.ts'
+            id: 'verifyCommit2ts'
           }
         ]
       },
       {
         label: 'verifyCommit.ts',
-        id: 'verifyCommit.ts',
+        id: 'verifyCommitts',
         children: [
           {
-            label: 'release2.1.ts',
-            id: 'release2.1.ts',
+            label: 'acc.1.ts',
+            id: 'release21ts',
             children: [
               {
-                label: 'release2.1.0.ts',
-                id: 'release2.1.0.ts'
+                label: 'ddd.1.0.ts',
+                id: 'release210ts'
               },
               {
                 label: 'verifyCommit2.1.0.ts',
-                id: 'verifyCommit2.1.0.ts'
+                id: 'verifyCommit210ts'
               }
             ]
           },
           {
             label: 'verifyCommit2.1.ts',
-            id: 'verifyCommit2.1.ts'
+            id: 'verifyCommit21ts'
           }
         ]
       }
@@ -73,7 +73,7 @@ const tree = [
   },
   {
     label: 'pnpm-workspace.yaml',
-    id: 'pnpm-workspace.yaml'
+    id: 'pnpm-workspaceyaml'
   }
 ]
 
@@ -96,13 +96,13 @@ const data = [
           },
           {
             label: 'README1.md',
-            id: 'README.md1'
+            id: 'READMEmd1'
           }
         ]
       },
       {
         label: 'README.md',
-        id: 'README.md'
+        id: 'READMEmd'
       }
     ]
   }

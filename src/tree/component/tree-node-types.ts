@@ -15,7 +15,7 @@ export const treeNodeProps = {
     type: Boolean,
     default: false
   },
-  draggable: {
+  drag: {
     type: Boolean,
     default: false
   }
