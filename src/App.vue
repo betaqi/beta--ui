@@ -1,21 +1,23 @@
 <template>
-  <SButton type="primary" tertiary size="small">primary</SButton>
+  <!-- <SButton type="primary" tertiary size="small">primary</SButton>
   <SButton type="default" size="small">default</SButton>
   <STree :data="tree" checkable drag operable @lazy-load="lazyLoad">
     <template #switcherIcon="expanded">{{ expanded ? '🙉' : '🙈' }}</template>
-    <!-- <template #icon="node"
+    <template #icon="node"
       ><img v-if="node.isLeaf" src="./assets/file-paste.svg" alt="" />
       <img v-else src="./assets/file.svg" alt="" />
-    </template> -->
+    </template>
     <template #loading>
       <img src="../public/loading.svg" />
     </template>
-  </STree>
+  </STree> -->
+  <virtualList></virtualList>
 </template>
 
 <script setup lang="ts">
 import { STree } from './tree/index'
 import { SButton } from './button/index'
+import virtualList from './virtual-list.vue'
 const tree = [
   {
     label: 'docs',
@@ -114,4 +116,8 @@ const lazyLoad = (node: any, cb: any) => {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+#app {
+  height: 100vh;
+}
+</style>
