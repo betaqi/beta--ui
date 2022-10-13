@@ -41,6 +41,9 @@ export const treeProps = {
   drag: {
     type: Boolean,
     default: false
+  },
+  height: {
+    type: Number
   }
 } as const
 

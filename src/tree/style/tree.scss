@@ -9,10 +9,26 @@
     border: 3px solid #63e2b7 !important;
   }
   &-next {
-    border-bottom: 3px solid #63e2b7 !important; 
+    border-bottom: 3px solid #63e2b7 !important;
   }
 }
 .node-drop-parent {
   border: 3px solid #63e2b7 !important;
+}
 
+.virtual-list {
+  &-visible {
+    height: 100%;
+    overflow-x: hidden;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  &-blank {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: -1;
+  }
 }

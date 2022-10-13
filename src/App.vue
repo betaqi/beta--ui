@@ -1,7 +1,14 @@
 <template>
   <SButton type="primary" tertiary size="small">primary</SButton>
   <SButton type="default" size="small">default</SButton>
-  <STree :data="tree" checkable drag operable @lazy-load="lazyLoad">
+  <STree
+    :data="tree"
+    :height="300"
+    checkable
+    drag
+    operable
+    @lazy-load="lazyLoad"
+  >
     <template #switcherIcon="expanded">{{ expanded ? '🙉' : '🙈' }}</template>
     <!-- <template #icon="node"
       ><img v-if="node.isLeaf" src="./assets/file-paste.svg" alt="" />
@@ -74,6 +81,18 @@ const tree = [
   {
     label: 'pnpm-workspace.yaml',
     id: 'pnpm-workspaceyaml'
+  },
+  {
+    label: 'kiki',
+    id: 'kiki'
+  },
+  {
+    label: 'kim23',
+    id: 'kim23'
+  },
+  {
+    label: 'packemaker',
+    id: 'packemaker'
   }
 ]
 

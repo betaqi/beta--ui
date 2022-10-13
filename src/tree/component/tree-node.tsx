@@ -25,7 +25,6 @@ export default defineComponent({
       drop,
       dragend
     } = inject('TREE_UTILS') as TreeUtils
-
     let dragProps = {}
     if (drag) {
       dragProps = {
@@ -118,7 +117,7 @@ export default defineComponent({
             )}
             {/* icon */}
             {slots.icon!()}
-            {node.label}
+            {node.label} 12
             {operable && isShowOperable.value && (
               <div class="inline-flex ml-1">
                 <span class="w-4 text-center" onclick={() => appendNode(node)}>

@@ -1,9 +1,10 @@
 import { defineComponent, provide, SetupContext } from 'vue'
 import { $ } from 'vue/macros'
-import { IInnerTreeNode, TreeProps, treeProps } from './tree-types'
+import { IInnerTreeNode, ITreeNode, TreeProps, treeProps } from './tree-types'
 import { useTree } from '../composables/use-tree'
 import STreeNode from '../component/tree-node'
 import '../style/tree.scss'
+import VirtualList from '../component/virtual-list'
 
 export default defineComponent({
   name: 'STree',
@@ -12,7 +13,7 @@ export default defineComponent({
 
   setup(props: TreeProps, context: SetupContext) {
     const { slots } = context
-    const { data: treeData } = $(props)
+    const { data: treeData, height } = $(props)
     const {
       toggleNode,
       ExpandedTree,
@@ -55,24 +56,40 @@ export default defineComponent({
       )
     }
 
+    const TreeNode = (node, { checkable, operable, drag }) => {
+      return (
+        <STreeNode node={node} checkable operable drag>
+          {{
+            icon: () => (slots.icon ? slots.icon(node) : ''),
+            switcherIcon: () =>
+              node.hasOwnProperty('expanded')
+                ? slots.switcherIcon
+                  ? slots.switcherIcon(node.expanded)
+                  : defaultswitcherIcon(node)
+                : '',
+            loading: () =>
+              slots.loading ? slots.loading(node) : <span>loading...</span>
+          }}
+        </STreeNode>
+      )
+    }
+
     return () => {
       return (
         <div style={{ userSelect: 'none', width: '1000px' }}>
-          {ExpandedTree.value.map(node => (
-            <STreeNode node={node} {...props}>
-              {{
-                icon: () => (slots.icon ? slots.icon(node) : ''),
-                switcherIcon: () =>
-                  node.hasOwnProperty('expanded')
-                    ? slots.switcherIcon
-                      ? slots.switcherIcon(node.expanded)
-                      : defaultswitcherIcon(node)
-                    : '',
-                loading: () =>
-                  slots.loading ? slots.loading(node) : <span>loading...</span>
-              }}
-            </STreeNode>
-          ))}
+          {height ? (
+            <div style={{ height: `${height}px` }}>
+              <VirtualList data={ExpandedTree.value}>
+                {{
+                  default: (node: IInnerTreeNode) => {
+                    return TreeNode(node, props)
+                  }
+                }}
+              </VirtualList>
+            </div>
+          ) : (
+            ExpandedTree.value.map(node => TreeNode(node, props))
+          )}
         </div>
       )
     }
