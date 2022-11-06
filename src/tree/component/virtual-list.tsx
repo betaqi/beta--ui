@@ -17,8 +17,6 @@ export default defineComponent({
     // 起始索引
     const startIndex = ref(0)
     const visibleData = computed(() => {
-      console.log(startIndex.value)
-      console.log(visibleConunt.value)
       return data.value.slice(
         startIndex.value,
         startIndex.value + visibleConunt.value
@@ -28,7 +26,9 @@ export default defineComponent({
     const offsetY = ref(0)
     const onScroll = (e: UIEvent) => {
       const { scrollTop } = e.target as HTMLElement
-      offsetY.value = scrollTop - (scrollTop % itemHeight.value)
+      console.log(offsetY.value)
+      offsetY.value = scrollTop
+
       startIndex.value = Math.floor(scrollTop / itemHeight.value)
     }
 

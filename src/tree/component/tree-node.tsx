@@ -117,7 +117,7 @@ export default defineComponent({
             )}
             {/* icon */}
             {slots.icon!()}
-            {node.label} 12
+            {node.label}
             {operable && isShowOperable.value && (
               <div class="inline-flex ml-1">
                 <span class="w-4 text-center" onclick={() => appendNode(node)}>

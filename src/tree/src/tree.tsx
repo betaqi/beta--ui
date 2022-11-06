@@ -56,7 +56,7 @@ export default defineComponent({
       )
     }
 
-    const TreeNode = (node, { checkable, operable, drag }) => {
+    const TreeNode = (node: IInnerTreeNode) => {
       return (
         <STreeNode node={node} checkable operable drag>
           {{
@@ -82,13 +82,13 @@ export default defineComponent({
               <VirtualList data={ExpandedTree.value}>
                 {{
                   default: (node: IInnerTreeNode) => {
-                    return TreeNode(node, props)
+                    return TreeNode(node)
                   }
                 }}
               </VirtualList>
             </div>
           ) : (
-            ExpandedTree.value.map(node => TreeNode(node, props))
+            ExpandedTree.value.map(node => TreeNode(node))
           )}
         </div>
       )
