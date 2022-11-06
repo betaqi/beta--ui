@@ -8,7 +8,9 @@ export default defineComponent({
     const { data, itemHeight, elComponent } = toRefs(props)
     const visibleRef = ref()
     const visibleHeight = ref(0)
-    const blankHeight = data.value.length * itemHeight.value + 'px'
+    const blankHeight = computed(
+      () => data.value.length * itemHeight.value + 'px'
+    )
 
     const visibleConunt = computed(() =>
       Math.ceil(visibleHeight.value / itemHeight.value)
@@ -43,7 +45,10 @@ export default defineComponent({
           ref={visibleRef}
           onscroll={onScroll}
         >
-          <div class="virtual-list-blank" style={{ height: blankHeight }}></div>
+          <div
+            class="virtual-list-blank"
+            style={{ height: blankHeight.value }}
+          ></div>
           <div
             style={{
               transform: `translate3d(0, ${offsetY.value}px, 0)`
