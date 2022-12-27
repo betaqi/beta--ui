@@ -1,10 +1,8 @@
 // docs/vite.config.ts
-import { defineConfig } from "vite";
-import vueJsx from "@vitejs/plugin-vue-jsx";
+import { defineConfig } from 'vite'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 var vite_config_default = defineConfig({
   plugins: [vueJsx()]
-});
-export {
-  vite_config_default as default
-};
+})
+export { vite_config_default as default }
 //# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiZG9jcy92aXRlLmNvbmZpZy50cyJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiaW1wb3J0IHsgZGVmaW5lQ29uZmlnIH0gZnJvbSAndml0ZSdcclxuaW1wb3J0IHZ1ZUpzeCBmcm9tICdAdml0ZWpzL3BsdWdpbi12dWUtanN4J1xyXG5cclxuZXhwb3J0IGRlZmF1bHQgZGVmaW5lQ29uZmlnKHtcclxuICBwbHVnaW5zOiBbdnVlSnN4KCldXHJcbn0pXHJcbiJdLAogICJtYXBwaW5ncyI6ICI7QUFBQTtBQUNBO0FBRUEsSUFBTyxzQkFBUSxhQUFhO0FBQUEsRUFDMUIsU0FBUyxDQUFDLE9BQU8sQ0FBQztBQUNwQixDQUFDOyIsCiAgIm5hbWVzIjogW10KfQo=

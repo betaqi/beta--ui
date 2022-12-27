@@ -1,4 +1,3 @@
-import { Ref, ref, reactive, watch } from 'vue'
 import { IInnerTreeNode } from '../src/tree-types'
 import { UseDrag, UseCore, IDragState } from './use-tree-type'
 
